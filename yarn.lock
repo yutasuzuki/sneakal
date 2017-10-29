@@ -3476,7 +3476,7 @@ lodash@^3.5.0:
   version "3.10.1"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-3.10.1.tgz#5bf45e8e49ba4189e17d482789dfd15bd140b7b6"
 
-lodash@^4.0.0, lodash@^4.14.0, lodash@^4.14.1, lodash@^4.16.6, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.2.1, lodash@^4.3.0, lodash@^4.6.1:
+lodash@^4.0.0, lodash@^4.14.0, lodash@^4.14.1, lodash@^4.16.4, lodash@^4.16.6, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.2.1, lodash@^4.3.0, lodash@^4.6.1:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
@@ -3561,6 +3561,10 @@ makeerror@1.0.x:
   resolved "https://registry.yarnpkg.com/makeerror/-/makeerror-1.0.11.tgz#e01a5c9109f2af79660e4e8b9587790184f5a96c"
   dependencies:
     tmpl "1.0.x"
+
+marked@^0.3.6:
+  version "0.3.6"
+  resolved "https://registry.yarnpkg.com/marked/-/marked-0.3.6.tgz#b2c6c618fccece4ef86c4fc6cb8a7cbf5aeda8d7"
 
 match-require@^2.0.0:
   version "2.1.0"
@@ -4469,6 +4473,12 @@ react-native-gesture-handler@1.0.0-alpha.28:
 react-native-maps@0.17.0:
   version "0.17.0"
   resolved "https://registry.yarnpkg.com/react-native-maps/-/react-native-maps-0.17.0.tgz#d10fa94a049432c46b6ee03fe9db84c83da65c8b"
+
+react-native-markdown-syntax@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/react-native-markdown-syntax/-/react-native-markdown-syntax-0.1.0.tgz#e6813da8ba3f0a2738bccc9ae92baf4d02bad5a3"
+  dependencies:
+    lodash "^4.16.4"
 
 react-native-safe-module@^1.1.0:
   version "1.2.0"

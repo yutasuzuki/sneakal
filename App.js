@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, createElement } from 'react';
 import { 
   StyleSheet, 
   Text, 
@@ -11,6 +11,7 @@ import Expo, { Font } from "expo";
 import Swiper from 'react-native-swiper';
 import { NativeRouter, Route, Link } from 'react-router-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import marked from 'marked';
 
 const { width } = Dimensions.get('window');
 
@@ -30,7 +31,7 @@ const { width } = Dimensions.get('window');
 
 const text = `
 # ES6 modules
-canary -> flags -> 
+- canary -> flags -> 
 pathを書かないといけない
 
 ---
@@ -47,16 +48,80 @@ pathを書かないといけない
 
 ---
 # usability and a11y
-* ISOで両者定義されている
+**ISOで両者定義されている**
 * UC browser
 * windowsのシェアをandroidが抜いている
 * UI != UX
 * UX == 主観的満足度
 * 後方互換 -> IE
+
+---
+# 静的サイトジェネレーター
+* harp 
+
+---
+# fluent design system
+* design systemは概念や原則がある
+* light, depth, material, motion, scale
+* 実例がまだ少ない
+* documentあり
+* inclusive design at microsoft
+
 `;
 
-function cacheFonts(fonts) {
-  return fonts.map(font => Expo.Font.loadAsync(font));
+const MarkdownStyles = {
+  h1: {
+    fontSize: 22,
+  },
+  strong: {
+    fontSize: 44,
+  },
+  p: {
+    fontSize: 10,
+  },
+  view: {
+    borderWidth: 1,
+  },
+}
+
+class Markdown extends Component {
+  constructor (props) {
+    super(props);
+    this.props = props;
+    this.elements = [];
+  }
+
+  convertMarkdown() {
+    const block = marked(this.props.text);
+    const contexts = block.split('\n');
+     contexts.map((value, index) => {
+      if (value.match(/<([^>]+)>/g)) {
+        const tagContext = value.match(/<([^>]+)>/g)[0];
+        const tagInner = tagContext.match(/<(.*|)>/)[1];
+        console.log(tagInner);
+        const tag = tagInner.split(' ')[0].indexOf('/') === -1 ? tagInner.split(' ')[0]: null;
+        console.log(tag);
+        // if (tag) { 
+          this.elements.push(
+            createElement(Text, {
+              key: index,
+              style: this.props.styles[tag]
+            }, `${value.replace(/<\/?[^>]+>/g, '')}\n`)
+          );
+        // }
+      }
+    });
+    console.log(this.elements);
+    return this.elements;
+  }
+
+  render() {
+    return (
+      <Text>
+        {this.convertMarkdown().map((v) => v)}
+      </Text>
+    )
+  }
 }
 
 class SwipeView extends Component {
@@ -64,22 +129,24 @@ class SwipeView extends Component {
     super(props);
     this.props = props;
   }
-  
-  componentWillMount() {
-    this.setState({
-      text: this.props.text
-    });
-  }
 
   render() {
     return (
       <ScrollView>
         <View style={styles.slide} >
-          <Text style={styles.p}>aaaaaaa {this.state.text}</Text>
+          <Text style={styles.paragraph}>
+            {this.props.text}
+          </Text>
+          {/* <Markdown style={MarkdownStyles} text={this.props.text} /> */}
         </View>
       </ScrollView>
     )
   }
+}
+
+
+function cacheFonts(fonts) {
+  return fonts.map(font => Expo.Font.loadAsync(font));
 }
 
 class Slide extends Component {
@@ -99,7 +166,7 @@ class Slide extends Component {
   componentWillMount() {
     this.preload();
     this.setState({
-      texts: text.split('---')
+      texts: text.split('---\n')
     });
   }
 
@@ -111,10 +178,7 @@ class Slide extends Component {
       // 'FiraCode-Regular': require('./assets/fonts/FiraCode-Regular.ttf'),
       {'FiraCode-Retina': require('./assets/fonts/FiraCode-Retina.ttf')},
     ]);
-
-    await Promise.all([
-      ...fontAssets,
-    ]);
+    await Promise.all([...fontAssets]);
 
     this.setState({preload: true});
   }
@@ -157,8 +221,6 @@ class Slide extends Component {
   }
 
   render() {
-    let btnPlayer = <Icon name='play' size={18} color="#f12f40" />;
-
     if (!this.state.preload) {
       return (
         <View>
@@ -166,6 +228,7 @@ class Slide extends Component {
         </View>
       )
     }
+
     return (
       <View style={styles.swiper}>
         <View style={styles.headerOffset}></View>
@@ -189,8 +252,8 @@ class Slide extends Component {
         </View>
         <Swiper
           showsButtons={false} 
-          dot={<View style={{backgroundColor: 'rgba(241, 47, 64, .16)', top:0, width: width / this.state.texts.length, height: 2}} />}
-          activeDot={<View style={{backgroundColor: 'rgba(241, 47, 64, 1)', width: width / this.state.texts.length, height: 2}} />}
+          dot={<View style={{backgroundColor: 'rgba(241, 47, 64, .16)', top:0, width: width / this.state.texts.length, height: 1}} />}
+          activeDot={<View style={{backgroundColor: 'rgba(241, 47, 64, 1)', width: width / this.state.texts.length, height: 1}} />}
           paginationStyle={{bottom: null}}
           loop={false}
         >
@@ -237,7 +300,7 @@ const styles = StyleSheet.create({
   },
   player: {
     position:'absolute',
-    right: 5,
+    right: 8,
     padding: 12,
     borderRadius: 4,
   },
@@ -247,9 +310,15 @@ const styles = StyleSheet.create({
   },
   slide: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    paddingTop: 32,
+    paddingRight: 24,
+    paddingLeft: 24,
+    paddingBottom: 48,
     backgroundColor: '#fff',
+  },
+  paragraph: {
+    lineHeight: 18,
+    color: '#444',
   },
   p: {
     color: '#444',
@@ -259,4 +328,4 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold',
   }
-})
+});
