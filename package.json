@@ -20,8 +20,11 @@
   },
   "dependencies": {
     "expo": "^22.0.0",
+    "firacode": "^1.205.0",
     "react": "16.0.0-beta.5",
     "react-native": "^0.49.5",
-    "react-native-swiper": "^1.5.13"
+    "react-native-swiper": "^1.5.13",
+    "react-native-vector-icons": "^4.4.2",
+    "react-router-native": "^4.2.0"
   }
 }
