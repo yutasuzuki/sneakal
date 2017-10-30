@@ -48,7 +48,7 @@ pathを書かないといけない
 
 ---
 # usability and a11y
-**ISOで両者定義されている**
+*ISOで両者定義されている*fsdfsd
 * UC browser
 * windowsのシェアをandroidが抜いている
 * UI != UX
@@ -71,16 +71,22 @@ pathを書かないといけない
 
 const MarkdownStyles = {
   h1: {
-    fontSize: 22,
+    fontSize: 24,
+    marginBottom: 24,
+    paddingBottom: 12,
+    borderBottomWidth: 0.5,
+    borderBottomColor: '#e5e5e5',
   },
   strong: {
-    fontSize: 44,
+    fontSize: 36,
   },
   p: {
-    fontSize: 10,
+    fontSize: 16,
+    lineHeight:20,
   },
-  view: {
-    borderWidth: 1,
+  li: {
+    fontSize: 16,
+    lineHeight:40,
   },
 }
 
@@ -88,38 +94,70 @@ class Markdown extends Component {
   constructor (props) {
     super(props);
     this.props = props;
-    this.elements = [];
+    this.inlineStyleList = [
+      'color',
+      'fontFamily',
+      'fontSize',
+      'fontStyle',
+      'fontWeight',
+      'lineHeight',
+      'textAlign',
+      'textDecorationLine',
+      'textShadowColor',
+      'textShadowOffset',
+      'textShadowRadius',
+      'textAlignVertical',
+      'fontVariant',
+      'letterSpacing',
+      'textDecorationColor',
+      'textDecorationStyle',
+      'writingDirection'
+    ];
   }
 
   convertMarkdown() {
+    const elements = [];
     const block = marked(this.props.text);
     const contexts = block.split('\n');
-     contexts.map((value, index) => {
+     contexts.forEach((value, index) => {
       if (value.match(/<([^>]+)>/g)) {
         const tagContext = value.match(/<([^>]+)>/g)[0];
         const tagInner = tagContext.match(/<(.*|)>/)[1];
-        console.log(tagInner);
-        const tag = tagInner.split(' ')[0].indexOf('/') === -1 ? tagInner.split(' ')[0]: null;
-        console.log(tag);
-        // if (tag) { 
-          this.elements.push(
-            createElement(Text, {
-              key: index,
-              style: this.props.styles[tag]
-            }, `${value.replace(/<\/?[^>]+>/g, '')}\n`)
+        const tag = tagInner.split(' ')[0].indexOf('/') === -1 ? tagInner.split(' ')[0]: 'p';
+        const text = value.replace(/<\/?[^>]+>/g, '');
+        const styles = this.getStyles(this.props.styles[tag]);
+        if (text) {
+          elements.push(
+            <View key={index} style={styles.block}>
+              <Text style={styles.inline}>{text}</Text>
+            </View>
           );
-        // }
+        }
       }
     });
-    console.log(this.elements);
-    return this.elements;
+    return elements;
+  }
+
+  getStyles(style) {
+    const styles = {
+      inline: {},
+      block: {}
+    };
+    for(const key in style) {
+      if (this.inlineStyleList.includes(key)) {
+        styles.inline[key] = style[key];
+      } else {
+        styles.block[key] = style[key];
+      }
+    }
+    return styles;
   }
 
   render() {
     return (
-      <Text>
-        {this.convertMarkdown().map((v) => v)}
-      </Text>
+      <View>
+        {this.convertMarkdown().map(v => v)}
+      </View>
     )
   }
 }
@@ -134,10 +172,7 @@ class SwipeView extends Component {
     return (
       <ScrollView>
         <View style={styles.slide} >
-          <Text style={styles.paragraph}>
-            {this.props.text}
-          </Text>
-          {/* <Markdown style={MarkdownStyles} text={this.props.text} /> */}
+          <Markdown styles={MarkdownStyles} text={this.props.text} />
         </View>
       </ScrollView>
     )
@@ -252,8 +287,8 @@ class Slide extends Component {
         </View>
         <Swiper
           showsButtons={false} 
-          dot={<View style={{backgroundColor: 'rgba(241, 47, 64, .16)', top:0, width: width / this.state.texts.length, height: 1}} />}
-          activeDot={<View style={{backgroundColor: 'rgba(241, 47, 64, 1)', width: width / this.state.texts.length, height: 1}} />}
+          dot={<View style={{backgroundColor: 'rgba(241, 241, 241, 1)', top:0, width: (width - 16) / this.state.texts.length, height: 1}} />}
+          activeDot={<View style={{backgroundColor: 'rgba(241, 47, 64, 1)', width: (width - 16) / this.state.texts.length, height: 1}} />}
           paginationStyle={{bottom: null}}
           loop={false}
         >
