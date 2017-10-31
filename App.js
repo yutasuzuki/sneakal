@@ -33,6 +33,37 @@ const text = `
 # ES6 modules
 - canary -> flags -> 
 pathを書かないといけない
+* design systemは概念や原則がある
+* light, depth, material, motion, scale
+* 実例がまだ少ない
+* documentあり
+* inclusive design at microsoft
+* design systemは概念や原則がある
+* light, depth, material, motion, scale
+* 実例がまだ少ない
+* documentあり
+* inclusive design at microsoft
+* design systemは概念や原則がある
+* light, depth, material, motion, scale
+* 実例がまだ少ない
+* documentあり
+* inclusive design at microsoft
+* design systemは概念や原則がある
+* light, depth, material, motion, scale
+* 実例がまだ少ない
+* documentあり
+* inclusive design at microsoft
+* design systemは概念や原則がある
+* light, depth, material, motion, scale
+* 実例がまだ少ない
+* documentあり
+* inclusive design at microsoft
+* design systemは概念や原則がある
+* light, depth, material, motion, scale
+* 実例がまだ少ない
+* documentあり
+* inclusive design at microsoft
+
 
 ---
 # fluent design system
@@ -266,30 +297,32 @@ class Slide extends Component {
 
     return (
       <View style={styles.swiper}>
-        <View style={styles.headerOffset}></View>
         <View style={styles.header}>
-          <TouchableHighlight 
-            underlayColor='#efb7bc' 
-            style={styles.timer} 
-            onLongPress={this.onResetPlayerHandler.bind(this)}
-          >
-            <Text style={styles.timerText}>
-              {this.state.minites}:{this.state.seconds.toString().length === 1 ? `0${this.state.seconds}`: this.state.seconds}
-            </Text>
-          </TouchableHighlight>
-          <TouchableHighlight 
-            underlayColor='#efb7bc' 
-            style={styles.player} 
-            onPress={this.onSwitchPlayerHandler.bind(this)}
-          >
-            <Icon name={this.state.player? 'pause': 'play'} size={20} color="#f12f40" />
-          </TouchableHighlight>
+          <View style={styles.headerOffset}></View>
+          <View style={styles.headerInner}>
+            <TouchableHighlight 
+              underlayColor='#efb7bc' 
+              style={styles.timer} 
+              onLongPress={this.onResetPlayerHandler.bind(this)}
+            >
+              <Text style={styles.timerText}>
+                {this.state.minites}:{this.state.seconds.toString().length === 1 ? `0${this.state.seconds}`: this.state.seconds}
+              </Text>
+            </TouchableHighlight>
+            <TouchableHighlight 
+              underlayColor='#efb7bc' 
+              style={styles.player} 
+              onPress={this.onSwitchPlayerHandler.bind(this)}
+            >
+              <Icon name={this.state.player? 'pause': 'play'} size={20} color="#f12f40" />
+            </TouchableHighlight>
+          </View>
         </View>
         <Swiper
           showsButtons={false} 
-          dot={<View style={{backgroundColor: 'rgba(241, 241, 241, 1)', top:0, width: (width - 16) / this.state.texts.length, height: 1}} />}
+          dot={<View style={{backgroundColor: 'rgba(150, 150, 150, .1)', top:0, width: (width - 16) / this.state.texts.length, height: 1}} />}
           activeDot={<View style={{backgroundColor: 'rgba(241, 47, 64, 1)', width: (width - 16) / this.state.texts.length, height: 1}} />}
-          paginationStyle={{bottom: null}}
+          paginationStyle={{bottom: 20}}
           loop={false}
         >
           {this.state.texts.map((text, index) => <SwipeView text={text} key={index} />)}
@@ -314,15 +347,21 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
+    position:'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 1,
+    backgroundColor: 'rgba(255, 255, 255, .97)',
+  },
+  headerOffset: {
+    height: 20,
+  },
+  headerInner: {
     height: 45,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff',
-  },
-  headerOffset: {
-    height: 20,
-    backgroundColor: '#fff',
   },
   timer: {
     padding: 8,
@@ -345,7 +384,7 @@ const styles = StyleSheet.create({
   },
   slide: {
     flex: 1,
-    paddingTop: 32,
+    paddingTop: 88,
     paddingRight: 24,
     paddingLeft: 24,
     paddingBottom: 48,
