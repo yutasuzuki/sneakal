@@ -124,7 +124,6 @@ const MarkdownStyles = {
 class Markdown extends Component {
   constructor (props) {
     super(props);
-    this.props = props;
     this.inlineStyleList = [
       'color',
       'fontFamily',
@@ -147,10 +146,9 @@ class Markdown extends Component {
   }
 
   convertMarkdown() {
-    const elements = [];
     const block = marked(this.props.text);
     const contexts = block.split('\n');
-     contexts.forEach((value, index) => {
+    return contexts.map((value, index) => {
       if (value.match(/<([^>]+)>/g)) {
         const tagContext = value.match(/<([^>]+)>/g)[0];
         const tagInner = tagContext.match(/<(.*|)>/)[1];
@@ -158,7 +156,7 @@ class Markdown extends Component {
         const text = value.replace(/<\/?[^>]+>/g, '');
         const styles = this.getStyles(this.props.styles[tag]);
         if (text) {
-          elements.push(
+          return (
             <View key={index} style={styles.block}>
               <Text style={styles.inline}>{text}</Text>
             </View>
@@ -166,7 +164,6 @@ class Markdown extends Component {
         }
       }
     });
-    return elements;
   }
 
   getStyles(style) {
@@ -309,6 +306,17 @@ class Slide extends Component {
                 {this.state.minites}:{this.state.seconds.toString().length === 1 ? `0${this.state.seconds}`: this.state.seconds}
               </Text>
             </TouchableHighlight>
+            <View style={styles.timeLimits}>
+              <View style={styles.timeLimitItem}>
+                <Text style={styles.timeLimit}>3:00</Text>
+              </View>
+              <View style={styles.timeLimitItem}>
+                <Text style={styles.timeLimit}>5:00</Text>
+              </View>
+              <View style={styles.timeLimitItem}>
+                <Text style={styles.timeLimit}>7:00</Text>
+              </View>
+            </View>
             <TouchableHighlight 
               underlayColor='#efb7bc' 
               style={styles.player} 
@@ -371,6 +379,19 @@ const styles = StyleSheet.create({
     fontFamily: "FiraCode-Retina",
     color: '#f12f40',
     fontSize: 24
+  },
+  timeLimits: {
+    position:'absolute',
+    top: 10,
+    right: 100,
+  },
+  timeLimitItem: {
+    marginRight: 5,
+  },
+  timeLimit: {
+    fontFamily: "FiraCode-Retina",
+    fontSize: 10,
+    color: '#f12f40'
   },
   player: {
     position:'absolute',
