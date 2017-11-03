@@ -1,6 +1,7 @@
 import React, { Component, createElement } from 'react';
 import { 
   StyleSheet, 
+  Animated,
   Text, 
   View,
   ScrollView,
@@ -206,7 +207,33 @@ class SwipeView extends Component {
     )
   }
 }
+class TimeLimit extends Component {
+  state = {
+    fadeAnim: new Animated.Value(0),
+  }
 
+  componentDidMount() {
+    Animated.timing(this.state.fadeAnim, {
+        toValue: 1,
+        duration: 1000,
+    }).start();
+  }
+
+  render() {
+    let { fadeAnim } = this.state;
+
+    return (
+      <Animated.View                 // Special animatable View
+        style={{
+          ...this.props.style,
+          opacity: fadeAnim,         // Bind opacity to animated value
+        }}
+      >
+        {this.props.children}
+      </Animated.View>
+    );
+  }
+}
 
 function cacheFonts(fonts) {
   return fonts.map(font => Expo.Font.loadAsync(font));
@@ -220,7 +247,8 @@ class Slide extends Component {
       seconds: 0,
       minites: 0,
       total: 0,
-      player: false
+      player: false,
+      showTimeLimit: false,
     };
     this.state = Object.assign({}, this.defaultState);
     this.queue = null;
@@ -266,6 +294,10 @@ class Slide extends Component {
     });
   }
 
+  onShowTimeLimitHandler() {
+    this.showTimeLimit = !this.showTimeLimit;
+  }
+
   startTimer() {
     this.queue = setInterval(() => {
       const total = this.state.total + 1;
@@ -301,11 +333,21 @@ class Slide extends Component {
               underlayColor='#efb7bc' 
               style={styles.timer} 
               onLongPress={this.onResetPlayerHandler.bind(this)}
+              onPress={this.onShowTimeLimitHandler.bind(this)}
             >
               <Text style={styles.timerText}>
                 {this.state.minites}:{this.state.seconds.toString().length === 1 ? `0${this.state.seconds}`: this.state.seconds}
               </Text>
             </TouchableHighlight>
+            <TouchableHighlight 
+              underlayColor='#efb7bc' 
+              style={styles.player} 
+              onPress={this.onSwitchPlayerHandler.bind(this)}
+            >
+              <Icon name={this.state.player? 'pause': 'play'} size={20} color="#f12f40" />
+            </TouchableHighlight>
+          </View>
+          <TimeLimit>
             <View style={styles.timeLimits}>
               <View style={styles.timeLimitItem}>
                 <Text style={styles.timeLimit}>3:00</Text>
@@ -317,14 +359,7 @@ class Slide extends Component {
                 <Text style={styles.timeLimit}>7:00</Text>
               </View>
             </View>
-            <TouchableHighlight 
-              underlayColor='#efb7bc' 
-              style={styles.player} 
-              onPress={this.onSwitchPlayerHandler.bind(this)}
-            >
-              <Icon name={this.state.player? 'pause': 'play'} size={20} color="#f12f40" />
-            </TouchableHighlight>
-          </View>
+          </TimeLimit>
         </View>
         <Swiper
           showsButtons={false} 
@@ -381,16 +416,18 @@ const styles = StyleSheet.create({
     fontSize: 24
   },
   timeLimits: {
-    position:'absolute',
-    top: 10,
-    right: 100,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingBottom: 4,
   },
   timeLimitItem: {
-    marginRight: 5,
+    marginRight: 8,
+    marginLeft: 8,
   },
   timeLimit: {
     fontFamily: "FiraCode-Retina",
-    fontSize: 10,
+    fontSize: 12,
     color: '#f12f40'
   },
   player: {
@@ -405,7 +442,7 @@ const styles = StyleSheet.create({
   },
   slide: {
     flex: 1,
-    paddingTop: 88,
+    paddingTop: 104,
     paddingRight: 24,
     paddingLeft: 24,
     paddingBottom: 48,
