@@ -6,6 +6,7 @@ import {
   View,
   ScrollView,
   TouchableHighlight,
+  Vibration,
   Dimensions 
 } from 'react-native';
 import Expo, { Font } from "expo";
@@ -207,6 +208,7 @@ class SwipeView extends Component {
     )
   }
 }
+
 class TimeLimit extends Component {
   state = {
     fadeAnim: new Animated.Value(0),
@@ -249,6 +251,7 @@ class Slide extends Component {
       total: 0,
       player: false,
       showTimeLimit: false,
+      notificationTimes: [10, 120, 180]
     };
     this.state = Object.assign({}, this.defaultState);
     this.queue = null;
@@ -268,6 +271,7 @@ class Slide extends Component {
       // 'FiraCode-Medium': require('./assets/fonts/FiraCode-Medium.ttf'),
       // 'FiraCode-Regular': require('./assets/fonts/FiraCode-Regular.ttf'),
       {'FiraCode-Retina': require('./assets/fonts/FiraCode-Retina.ttf')},
+      {'AvenirNext': require('./assets/fonts/AvenirNext.otf')},
     ]);
     await Promise.all([...fontAssets]);
 
@@ -296,6 +300,26 @@ class Slide extends Component {
 
   onShowTimeLimitHandler() {
     this.showTimeLimit = !this.showTimeLimit;
+  }
+
+  showNotificationTimes() {
+    return this.state.notificationTimes.map((value, index) => { 
+      if (this.state.total === value) {
+        Vibration.vibrate();
+      }
+      const minites = Math.floor(value / 60);
+      const seconds = Math.floor(value % 60);
+      const sytle = {
+        fontFamily: "FiraCode-Retina",
+        fontSize: 12,
+        color: this.state.total < value? '#f12f40': '#efefef',
+      };
+      return (
+        <View key={index} style={styles.timeLimitItem}>
+          <Text style={sytle}>{minites}:{seconds.toString().length === 1 ? `0${seconds}`: seconds}</Text>
+        </View>
+      );
+    });
   }
 
   startTimer() {
@@ -331,6 +355,13 @@ class Slide extends Component {
           <View style={styles.headerInner}>
             <TouchableHighlight 
               underlayColor='#efb7bc' 
+              style={styles.chevronLeft} 
+              onPress={this.onSwitchPlayerHandler.bind(this)}
+            >
+              <Icon name={'chevron-left'} size={20} color="#f12f40" />
+            </TouchableHighlight>
+            <TouchableHighlight 
+              underlayColor='#efb7bc' 
               style={styles.timer} 
               onLongPress={this.onResetPlayerHandler.bind(this)}
               onPress={this.onShowTimeLimitHandler.bind(this)}
@@ -347,19 +378,9 @@ class Slide extends Component {
               <Icon name={this.state.player? 'pause': 'play'} size={20} color="#f12f40" />
             </TouchableHighlight>
           </View>
-          <TimeLimit>
-            <View style={styles.timeLimits}>
-              <View style={styles.timeLimitItem}>
-                <Text style={styles.timeLimit}>3:00</Text>
-              </View>
-              <View style={styles.timeLimitItem}>
-                <Text style={styles.timeLimit}>5:00</Text>
-              </View>
-              <View style={styles.timeLimitItem}>
-                <Text style={styles.timeLimit}>7:00</Text>
-              </View>
-            </View>
-          </TimeLimit>
+          <View style={styles.timeLimits}>
+            {this.showNotificationTimes()}
+          </View>
         </View>
         <Swiper
           showsButtons={false} 
@@ -425,10 +446,11 @@ const styles = StyleSheet.create({
     marginRight: 8,
     marginLeft: 8,
   },
-  timeLimit: {
-    fontFamily: "FiraCode-Retina",
-    fontSize: 12,
-    color: '#f12f40'
+  chevronLeft: {
+    position:'absolute',
+    left: 8,
+    padding: 12,
+    borderRadius: 4,
   },
   player: {
     position:'absolute',
