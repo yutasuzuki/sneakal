@@ -32,48 +32,25 @@ const { width } = Dimensions.get('window');
 // }
 
 const text = `
-# ES6 modules
-- canary -> flags -> 
-pathを書かないといけない
-* design systemは概念や原則がある
-* light, depth, material, motion, scale
-* 実例がまだ少ない
-* documentあり
-* inclusive design at microsoft
-* design systemは概念や原則がある
-* light, depth, material, motion, scale
-* 実例がまだ少ない
-* documentあり
-* inclusive design at microsoft
-* design systemは概念や原則がある
-* light, depth, material, motion, scale
-* 実例がまだ少ない
-* documentあり
-* inclusive design at microsoft
-* design systemは概念や原則がある
-* light, depth, material, motion, scale
-* 実例がまだ少ない
-* documentあり
-* inclusive design at microsoft
-* design systemは概念や原則がある
-* light, depth, material, motion, scale
-* 実例がまだ少ない
-* documentあり
-* inclusive design at microsoft
-* design systemは概念や原則がある
-* light, depth, material, motion, scale
-* 実例がまだ少ない
-* documentあり
-* inclusive design at microsoft
+# 自己紹介とテーマ
+
+* 「働く上で大切にしている事」
+
+* 引越し侍の鈴木ゆうたです。
+* フロントエンドとデザインのアシマネをしています。
+* ３２才で独身です。
+
+## 今回のテーマ
 
 
 ---
-# fluent design system
-* design systemは概念や原則がある
-* light, depth, material, motion, scale
-* 実例がまだ少ない
-* documentあり
-* inclusive design at microsoft
+# 働く上で大切にしている事
+
+働く上で大切にしている事の定義はいろいろある。
+
+* 会社を中心として
+* サービスとして
+* 個人として
 
 ---
 # 静的サイトジェネレーター
@@ -105,10 +82,22 @@ pathを書かないといけない
 const MarkdownStyles = {
   h1: {
     fontSize: 24,
+    fontWeight: 'bold',
     marginBottom: 24,
     paddingBottom: 12,
     borderBottomWidth: 0.5,
     borderBottomColor: '#e5e5e5',
+  },
+  h2: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginTop: 18,
+    marginBottom: 12,
+    paddingTop: 4,
+    paddingBottom: 4,
+    paddingLeft: 12,
+    borderLeftWidth: 2,
+    borderLeftColor: '#e5e5e5',
   },
   strong: {
     fontSize: 36,
@@ -119,7 +108,8 @@ const MarkdownStyles = {
   },
   li: {
     fontSize: 16,
-    lineHeight:40,
+    lineHeight: 20,
+    marginBottom: 10,
   },
 }
 
@@ -251,7 +241,7 @@ class Slide extends Component {
       total: 0,
       player: false,
       showTimeLimit: false,
-      notificationTimes: [10, 120, 180]
+      notificationTimes: [60, 120, 180]
     };
     this.state = Object.assign({}, this.defaultState);
     this.queue = null;
