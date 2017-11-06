@@ -4470,6 +4470,10 @@ react-native-gesture-handler@1.0.0-alpha.28:
   dependencies:
     prop-types "^15.5.10"
 
+react-native-iphone-x-helper@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.0.1.tgz#950dbdaca66f458689a7e9697c5beb9bd53f98f2"
+
 react-native-maps@0.17.0:
   version "0.17.0"
   resolved "https://registry.yarnpkg.com/react-native-maps/-/react-native-maps-0.17.0.tgz#d10fa94a049432c46b6ee03fe9db84c83da65c8b"
@@ -4505,6 +4509,12 @@ react-native-scripts@1.6.0:
     qrcode-terminal "^0.11.0"
     rimraf "^2.6.1"
     xdl "46.0.1"
+
+react-native-status-bar-height@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-status-bar-height/-/react-native-status-bar-height-1.0.1.tgz#5179e05646f99313439185dedd90d25e74b218ed"
+  dependencies:
+    react-native-iphone-x-helper "^1.0.1"
 
 react-native-svg@5.4.2:
   version "5.4.2"
