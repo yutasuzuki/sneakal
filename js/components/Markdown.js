@@ -4,12 +4,11 @@ import {
   View,
 } from 'react-native';
 import marked from 'marked';
-import Constants from '../Constants';
+import CONSTANTS from '../Constants';
 
 class Markdown extends Component {
   constructor (props) {
     super(props);
-    this.inlineStyleList = Constants.inlineStyleList;
   }
 
   convertMarkdown() {
@@ -26,9 +25,9 @@ class Markdown extends Component {
           return (
             <View key={index} style={styles.block}>
               {(() => { 
-                 if (tag === 'li') { 
-                   return <Text style={this.props.styles.liDot}></Text>
-                 }
+                if (tag === 'li') { 
+                  return <Text style={this.props.styles.liDot}></Text>
+                }
               })()}
               <Text style={styles.inline}>{text}</Text>
             </View>
@@ -44,7 +43,7 @@ class Markdown extends Component {
       block: {}
     };
     for(const key in style) {
-      if (this.inlineStyleList.includes(key)) {
+      if (CONSTANTS.INLINE_STYLE_LIST.includes(key)) {
         styles.inline[key] = style[key];
       } else {
         styles.block[key] = style[key];

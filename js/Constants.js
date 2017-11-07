@@ -1,5 +1,5 @@
 export default {
-  inlineStyleList: [
+  INLINE_STYLE_LIST: [
     'color',
     'fontFamily',
     'fontSize',

@@ -17,6 +17,8 @@ import Markdown from './Markdown';
 
 const { width } = Dimensions.get('window');
 
+const monoLight = '#d5d5d5';
+
 const MarkdownStyles = {
   h1: {
     fontSize: 24,
@@ -24,7 +26,7 @@ const MarkdownStyles = {
     marginBottom: 24,
     paddingBottom: 12,
     borderBottomWidth: 0.5,
-    borderBottomColor: '#e5e5e5',
+    borderBottomColor: monoLight,
   },
   h2: {
     fontSize: 18,
@@ -35,7 +37,7 @@ const MarkdownStyles = {
     paddingBottom: 4,
     paddingLeft: 12,
     borderLeftWidth: 2,
-    borderLeftColor: '#e5e5e5',
+    borderLeftColor: monoLight,
   },
   strong: {
     fontSize: 36,
@@ -46,12 +48,13 @@ const MarkdownStyles = {
     marginBottom: 16,
   },
   liDot: {
-    width: 6,
-    height: 6,
-    backgroundColor: '#e5e5e5',
+    width: 3,
+    height: 3,
     borderRadius: 3,
+    borderColor: monoLight,
+    borderWidth: 3,
     marginRight: 10,
-    marginTop: 8,
+    marginTop: 9,
   },
   li: {
     flex: 1,

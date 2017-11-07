@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
-import { 
-  StyleSheet, 
-  View,
-} from 'react-native';
-
+import { StyleSheet, View } from 'react-native';
 import { NativeRouter, Route, Link } from 'react-router-native';
 import Slide from './js/components/Slide';
 
@@ -16,9 +12,13 @@ const styles = StyleSheet.create({
 export default class App extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Slide />
-      </View>
+      <NativeRouter>
+        <View style={styles.container}>
+          <Route exact path="/" component={Slide}/>
+          {/* <Route path="/about" component={About}/>
+          <Route path="/topics" component={Topics}/> */}
+        </View>
+      </NativeRouter>		
     );
   }
 }
