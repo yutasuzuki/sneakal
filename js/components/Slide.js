@@ -7,7 +7,6 @@ import {
   ScrollView,
   TouchableHighlight,
   Vibration,
-  StatusBar,
   Dimensions 
 } from 'react-native';
 import Expo from 'expo';
@@ -31,7 +30,7 @@ const MarkdownStyles = {
     fontSize: 18,
     fontWeight: 'bold',
     marginTop: 18,
-    marginBottom: 12,
+    marginBottom: 16,
     paddingTop: 4,
     paddingBottom: 4,
     paddingLeft: 12,
@@ -42,20 +41,33 @@ const MarkdownStyles = {
     fontSize: 36,
   },
   p: {
-    fontSize: 16,
-    lineHeight:20,
+    fontSize: 18,
+    lineHeight: 22,
+    marginBottom: 16,
+  },
+  liDot: {
+    width: 6,
+    height: 6,
+    backgroundColor: '#e5e5e5',
+    borderRadius: 3,
+    marginRight: 10,
+    marginTop: 8,
   },
   li: {
+    flex: 1,
+    flexDirection: 'row',
     fontSize: 16,
     lineHeight: 20,
-    marginBottom: 10,
+    marginBottom: 12,
   },
 }
 
 const text = `
-# テーマと自己紹介
+# 自己紹介とテーマ
 
-* 「働く上で大切にしている事」
+それではスピーチを始めます。
+
+## 自己紹介
 
 * 引越し侍の鈴木ゆうたです。
 * フロントエンドとデザインのアシマネをしています。
@@ -63,6 +75,7 @@ const text = `
 
 ## 今回のテーマ
 
+* 「働く上で大切にしている事」
 
 ---
 # 働く上で大切にしている事
@@ -261,10 +274,6 @@ class Slide extends Component {
       <View style={styles.swiper}>
         <View style={styles.header}>
           <View style={styles.headerOffset}></View>
-          <StatusBar
-            backgroundColor="blue"
-            barStyle="light-content"
-          />
           <View style={styles.headerInner}>
             <TouchableHighlight 
               underlayColor='#efb7bc' 
