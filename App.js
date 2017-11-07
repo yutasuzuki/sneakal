@@ -15,8 +15,7 @@ export default class App extends Component {
       <NativeRouter>
         <View style={styles.container}>
           <Route exact path="/" component={Slide}/>
-          {/* <Route path="/about" component={About}/>
-          <Route path="/topics" component={Topics}/> */}
+          <Route path="/Slide" component={Slide}/>
         </View>
       </NativeRouter>		
     );
