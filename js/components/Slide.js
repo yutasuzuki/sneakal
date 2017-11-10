@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
-import { 
-  StyleSheet, 
+import {
+  StyleSheet,
   Animated,
-  Text, 
+  Text,
   View,
   ScrollView,
   TouchableHighlight,
   Vibration,
-  Dimensions 
+  Dimensions
 } from 'react-native';
 import Expo from 'expo';
 import Swiper from 'react-native-swiper';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
+import { Actions } from 'react-native-router-flux';
 import Markdown from './Markdown';
 
 const { width } = Dimensions.get('window');
@@ -127,7 +128,7 @@ const text = `
 
 
 class SwipeView extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.props = props;
   }
@@ -150,8 +151,8 @@ class TimeLimit extends Component {
 
   componentDidMount() {
     Animated.timing(this.state.fadeAnim, {
-        toValue: 1,
-        duration: 1000,
+      toValue: 1,
+      duration: 1000,
     }).start();
   }
 
@@ -176,7 +177,7 @@ function cacheFonts(fonts) {
 }
 
 class Slide extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.defaultState = {
       preload: false,
@@ -204,12 +205,12 @@ class Slide extends Component {
       // 'FiraCode-Light': require('./assets/fonts/FiraCode-Light.ttf'),
       // 'FiraCode-Medium': require('./assets/fonts/FiraCode-Medium.ttf'),
       // 'FiraCode-Regular': require('./assets/fonts/FiraCode-Regular.ttf'),
-      {'FiraCode-Retina': require('../../assets/fonts/FiraCode-Retina.ttf')},
-      {'AvenirNext': require('../../assets/fonts/AvenirNext.otf')},
+      { 'FiraCode-Retina': require('../../assets/fonts/FiraCode-Retina.ttf') },
+      { 'AvenirNext': require('../../assets/fonts/AvenirNext.otf') },
     ]);
     await Promise.all([...fontAssets]);
 
-    this.setState({preload: true});
+    this.setState({ preload: true });
   }
 
   onSwitchPlayerHandler() {
@@ -237,7 +238,7 @@ class Slide extends Component {
   }
 
   showNotificationTimes() {
-    return this.state.notificationTimes.map((value, index) => { 
+    return this.state.notificationTimes.map((value, index) => {
       if (this.state.total === value) {
         Vibration.vibrate();
       }
@@ -246,11 +247,11 @@ class Slide extends Component {
       const sytle = {
         fontFamily: "FiraCode-Retina",
         fontSize: 12,
-        color: this.state.total < value? '#f12f40': '#efefef',
+        color: this.state.total < value ? '#f12f40' : '#efefef',
       };
       return (
         <View key={index} style={styles.timeLimitItem}>
-          <Text style={sytle}>{minites}:{seconds.toString().length === 1 ? `0${seconds}`: seconds}</Text>
+          <Text style={sytle}>{minites}:{seconds.toString().length === 1 ? `0${seconds}` : seconds}</Text>
         </View>
       );
     });
@@ -268,7 +269,7 @@ class Slide extends Component {
       });
     }, 1000);
   }
-  
+
   stopTimer() {
     clearInterval(this.queue);
   }
@@ -287,29 +288,29 @@ class Slide extends Component {
         <View style={styles.header}>
           <View style={styles.headerOffset}></View>
           <View style={styles.headerInner}>
-            <TouchableHighlight 
-              underlayColor='#efb7bc' 
-              style={styles.chevronLeft} 
-              onPress={this.onSwitchPlayerHandler.bind(this)}
+            <TouchableHighlight
+              underlayColor='#efb7bc'
+              style={styles.chevronLeft}
+              onPress={Actions.pop}
             >
               <Icon name={'chevron-left'} size={20} color="#f12f40" />
             </TouchableHighlight>
-            <TouchableHighlight 
-              underlayColor='#efb7bc' 
-              style={styles.timer} 
+            <TouchableHighlight
+              underlayColor='#efb7bc'
+              style={styles.timer}
               onLongPress={this.onResetPlayerHandler.bind(this)}
               onPress={this.onShowTimeLimitHandler.bind(this)}
             >
               <Text style={styles.timerText}>
-                {this.state.minites}:{this.state.seconds.toString().length === 1 ? `0${this.state.seconds}`: this.state.seconds}
+                {this.state.minites}:{this.state.seconds.toString().length === 1 ? `0${this.state.seconds}` : this.state.seconds}
               </Text>
             </TouchableHighlight>
-            <TouchableHighlight 
-              underlayColor='#efb7bc' 
-              style={styles.player} 
+            <TouchableHighlight
+              underlayColor='#efb7bc'
+              style={styles.player}
               onPress={this.onSwitchPlayerHandler.bind(this)}
             >
-              <Icon name={this.state.player? 'pause': 'play'} size={20} color="#f12f40" />
+              <Icon name={this.state.player ? 'pause' : 'play'} size={20} color="#f12f40" />
             </TouchableHighlight>
           </View>
           <View style={styles.timeLimits}>
@@ -317,10 +318,10 @@ class Slide extends Component {
           </View>
         </View>
         <Swiper
-          showsButtons={false} 
-          dot={<View style={{backgroundColor: 'rgba(150, 150, 150, .1)', top:0, width: (width - 16) / this.state.texts.length, height: 1}} />}
-          activeDot={<View style={{backgroundColor: 'rgba(241, 47, 64, 1)', width: (width - 16) / this.state.texts.length, height: 1}} />}
-          paginationStyle={{bottom: 20}}
+          showsButtons={false}
+          dot={<View style={{ backgroundColor: 'rgba(150, 150, 150, .1)', top: 0, width: (width - 16) / this.state.texts.length, height: 1 }} />}
+          activeDot={<View style={{ backgroundColor: 'rgba(241, 47, 64, 1)', width: (width - 16) / this.state.texts.length, height: 1 }} />}
+          paginationStyle={{ bottom: 20 }}
           loop={false}
         >
           {this.state.texts.map((text, index) => <SwipeView text={text} key={index} />)}
@@ -332,7 +333,7 @@ class Slide extends Component {
 
 const styles = StyleSheet.create({
   header: {
-    position:'absolute',
+    position: 'absolute',
     top: 0,
     left: 0,
     right: 0,
@@ -368,13 +369,13 @@ const styles = StyleSheet.create({
     marginLeft: 8,
   },
   chevronLeft: {
-    position:'absolute',
+    position: 'absolute',
     left: 8,
     padding: 12,
     borderRadius: 4,
   },
   player: {
-    position:'absolute',
+    position: 'absolute',
     right: 8,
     padding: 12,
     borderRadius: 4,

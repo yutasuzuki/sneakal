@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
 import { Text, View } from 'react-native';
-import { Link } from 'react-router-native';
+import { Actions } from 'react-native-router-flux';
 
 class List extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
   }
 
   render() {
     return (
-      <View>
-        <Link to='/slide' style={{margin: 50}}>
-          <Text>List</Text>
-        </Link>
+      <View style={{ margin: 20 }}>
+        <Text onPress={Actions.slide}>List</Text>
       </View>
     )
   }
