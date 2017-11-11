@@ -11,14 +11,18 @@ class Markdown extends Component {
     super(props);
   }
 
+  getTagName(value) {
+    const tagContext = value.match(/<([^>]+)>/g)[0];
+    const tagInner = tagContext.match(/<(.*|)>/)[1];
+    return tagInner.split(' ')[0].indexOf('/') === -1 ? tagInner.split(' ')[0]: 'p';
+  }
+
   convertMarkdown() {
     const block = marked(this.props.text);
     const contexts = block.split('\n');
     return contexts.map((value, index) => {
       if (value.match(/<([^>]+)>/g)) {
-        const tagContext = value.match(/<([^>]+)>/g)[0];
-        const tagInner = tagContext.match(/<(.*|)>/)[1];
-        const tag = tagInner.split(' ')[0].indexOf('/') === -1 ? tagInner.split(' ')[0]: 'p';
+        const tag = this.getTagName(value);
         const text = value.replace(/<\/?[^>]+>/g, '');
         const styles = this.getStyles(this.props.styles[tag]);
         if (text) {

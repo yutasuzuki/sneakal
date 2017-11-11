@@ -69,12 +69,12 @@ class List extends Component {
                 </View>
               </TouchableHighlight>
             )}
-            renderHiddenRow={ (data, secId, rowId, rowMap) => (
+            renderHiddenRow={(data, secId, rowId, rowMap) => (
               <View style={style.list.behindContainer}>
                 <View style={[style.list.btnBehide, style.list.btnSetting]}>
                   <Text style={[style.text.white, style.text.bold]}>SETTING</Text>
                 </View>
-                <TouchableOpacity style={[style.list.btnBehide, style.list.btnDelete]} onPress={ _ => this.deleteRow(secId, rowId, rowMap) }>
+                <TouchableOpacity style={[style.list.btnBehide, style.list.btnDelete]}>
                   <Text style={[style.text.white, style.text.bold]}>DELETE</Text>
                 </TouchableOpacity>
               </View>
