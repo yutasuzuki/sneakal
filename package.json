@@ -27,6 +27,7 @@
     "react-native-markdown-syntax": "^0.1.0",
     "react-native-router-flux": "^4.0.0-beta.23",
     "react-native-status-bar-height": "^1.0.1",
+    "react-native-swipe-list-view": "^0.4.6",
     "react-native-swiper": "^1.5.13",
     "react-native-vector-icons": "^4.4.2"
   }

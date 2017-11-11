@@ -15,6 +15,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 import { Actions } from 'react-native-router-flux';
 import Markdown from './Markdown';
+import style from '../styles';
 
 const { width } = Dimensions.get('window');
 
@@ -144,34 +145,6 @@ class SwipeView extends Component {
   }
 }
 
-class TimeLimit extends Component {
-  state = {
-    fadeAnim: new Animated.Value(0),
-  }
-
-  componentDidMount() {
-    Animated.timing(this.state.fadeAnim, {
-      toValue: 1,
-      duration: 1000,
-    }).start();
-  }
-
-  render() {
-    let { fadeAnim } = this.state;
-
-    return (
-      <Animated.View                 // Special animatable View
-        style={{
-          ...this.props.style,
-          opacity: fadeAnim,         // Bind opacity to animated value
-        }}
-      >
-        {this.props.children}
-      </Animated.View>
-    );
-  }
-}
-
 function cacheFonts(fonts) {
   return fonts.map(font => Expo.Font.loadAsync(font));
 }
@@ -285,12 +258,12 @@ class Slide extends Component {
 
     return (
       <View style={styles.swiper}>
-        <View style={styles.header}>
-          <View style={styles.headerOffset}></View>
-          <View style={styles.headerInner}>
+        <View style={style.header.container}>
+          <View style={style.header.offset}></View>
+          <View style={style.header.inner}>
             <TouchableHighlight
               underlayColor='#efb7bc'
-              style={styles.chevronLeft}
+              style={style.header.prev}
               onPress={Actions.pop}
             >
               <Icon name={'chevron-left'} size={20} color="#f12f40" />
@@ -307,7 +280,7 @@ class Slide extends Component {
             </TouchableHighlight>
             <TouchableHighlight
               underlayColor='#efb7bc'
-              style={styles.player}
+              style={style.header.player}
               onPress={this.onSwitchPlayerHandler.bind(this)}
             >
               <Icon name={this.state.player ? 'pause' : 'play'} size={20} color="#f12f40" />
@@ -332,23 +305,6 @@ class Slide extends Component {
 }
 
 const styles = StyleSheet.create({
-  header: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    zIndex: 1,
-    backgroundColor: 'rgba(255, 255, 255, .97)',
-  },
-  headerOffset: {
-    height: getStatusBarHeight(),
-  },
-  headerInner: {
-    height: 45,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   timer: {
     padding: 8,
     borderRadius: 4,
@@ -367,18 +323,6 @@ const styles = StyleSheet.create({
   timeLimitItem: {
     marginRight: 8,
     marginLeft: 8,
-  },
-  chevronLeft: {
-    position: 'absolute',
-    left: 8,
-    padding: 12,
-    borderRadius: 4,
-  },
-  player: {
-    position: 'absolute',
-    right: 8,
-    padding: 12,
-    borderRadius: 4,
   },
   swiper: {
     flex: 1,

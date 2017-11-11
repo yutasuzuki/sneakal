@@ -27,7 +27,7 @@ export default class App extends Component {
     return (
       <Router>
         <Scene key='root'>
-          <Scene initial hideNavBar={true} key='list' component={List} />
+          <Scene hideNavBar={true} key='list' component={List} initial/>
           <Scene hideNavBar={true} key='slide' component={Slide} />
         </Scene>
       </Router>
