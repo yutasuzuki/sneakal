@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet,
-  Animated,
   Text,
   View,
   ScrollView,
@@ -137,7 +135,7 @@ class SwipeView extends Component {
   render() {
     return (
       <ScrollView>
-        <View style={styles.slide} >
+        <View style={style.slide.container} >
           <Markdown styles={MarkdownStyles} text={this.props.text} />
         </View>
       </ScrollView>
@@ -223,7 +221,7 @@ class Slide extends Component {
         color: this.state.total < value ? '#f12f40' : '#efefef',
       };
       return (
-        <View key={index} style={styles.timeLimitItem}>
+        <View key={index} style={style.header.timeLimitItem}>
           <Text style={sytle}>{minites}:{seconds.toString().length === 1 ? `0${seconds}` : seconds}</Text>
         </View>
       );
@@ -257,7 +255,7 @@ class Slide extends Component {
     }
 
     return (
-      <View style={styles.swiper}>
+      <View style={style.base.container}>
         <View style={style.header.container}>
           <View style={style.header.offset}></View>
           <View style={style.header.inner}>
@@ -270,11 +268,11 @@ class Slide extends Component {
             </TouchableHighlight>
             <TouchableHighlight
               underlayColor='#efb7bc'
-              style={styles.timer}
+              style={style.header.timer}
               onLongPress={this.onResetPlayerHandler.bind(this)}
               onPress={this.onShowTimeLimitHandler.bind(this)}
             >
-              <Text style={styles.timerText}>
+              <Text style={style.header.timerText}>
                 {this.state.minites}:{this.state.seconds.toString().length === 1 ? `0${this.state.seconds}` : this.state.seconds}
               </Text>
             </TouchableHighlight>
@@ -286,7 +284,7 @@ class Slide extends Component {
               <Icon name={this.state.player ? 'pause' : 'play'} size={20} color="#f12f40" />
             </TouchableHighlight>
           </View>
-          <View style={styles.timeLimits}>
+          <View style={style.header.timeLimits}>
             {this.showNotificationTimes()}
           </View>
         </View>
@@ -303,51 +301,5 @@ class Slide extends Component {
     )
   }
 }
-
-const styles = StyleSheet.create({
-  timer: {
-    padding: 8,
-    borderRadius: 4,
-  },
-  timerText: {
-    fontFamily: "FiraCode-Retina",
-    color: '#f12f40',
-    fontSize: 24
-  },
-  timeLimits: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingBottom: 4,
-  },
-  timeLimitItem: {
-    marginRight: 8,
-    marginLeft: 8,
-  },
-  swiper: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  slide: {
-    flex: 1,
-    paddingTop: 88 + getStatusBarHeight(),
-    paddingRight: 24,
-    paddingLeft: 24,
-    paddingBottom: 48,
-    backgroundColor: '#fff',
-  },
-  paragraph: {
-    lineHeight: 18,
-    color: '#444',
-  },
-  p: {
-    color: '#444',
-  },
-  text: {
-    color: '#fff',
-    fontSize: 30,
-    fontWeight: 'bold',
-  }
-});
 
 export default Slide;

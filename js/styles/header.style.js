@@ -31,6 +31,25 @@ const header = StyleSheet.create({
     padding: 12,
     borderRadius: 4,
   },
+  timer: {
+    padding: 8,
+    borderRadius: 4,
+  },
+  timerText: {
+    fontFamily: "FiraCode-Retina",
+    color: '#f12f40',
+    fontSize: 24
+  },
+  timeLimits: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingBottom: 4,
+  },
+  timeLimitItem: {
+    marginRight: 8,
+    marginLeft: 8,
+  },
 });
 
 export default header;
