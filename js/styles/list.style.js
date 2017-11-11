@@ -1,9 +1,11 @@
 import { StyleSheet } from 'react-native';
+import { getStatusBarHeight } from 'react-native-status-bar-height';
 
 const list = StyleSheet.create({
 	container: {
-		flex: 1,
-		marginBottom: 30
+    flex: 1,
+    backgroundColor: '#fff',
+    paddingTop: 45 + getStatusBarHeight(),
 	},
 	row: {
 		flex: 1,
@@ -20,20 +22,20 @@ const list = StyleSheet.create({
 		paddingLeft: 15,
 		backgroundColor: '#f3f3f3',
 	},
-	backBehide: {
+	btnBehide: {
 		position: 'absolute',
 		top: 0,
 		bottom: 0,
 		justifyContent: 'center',
 		alignItems: 'center',
-		width: 75
+		width: 75,
 	},
 	btnSetting: {
-		backgroundColor: 'blue',
+		backgroundColor: '#636363',
 		right: 75
 	},
 	btnDelete: {
-		backgroundColor: 'red',
+		backgroundColor: '#f12f40',
 		right: 0
 	},
 	item: {
@@ -58,16 +60,17 @@ const list = StyleSheet.create({
 		borderBottomWidth: 1,
   },
   header: {
-
+		marginBottom: 12,
   },
   textTitle: {
-
+		fontSize: 18,
   },
   body: {
 
   },
   textParagrph: {
-
+		fontSize: 14,
+    color: '#adadad',
   }
 });
 

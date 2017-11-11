@@ -21,18 +21,30 @@ class List extends Component {
 
   componentDidMount() {
     this.setState({
-      listItem: [1,2,3,4,5],
+      listItem: [1, 2, 3, 4, 5, 6, 7, 8, 9],
     })
   }
 
   render() {
-    //  onPress={Actions.slide}
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     if (!this.state.listItem.length) {
       return <Text>Loading</Text>
     }
     return (
       <View style={style.base.container}>
+
+        <View style={style.header.container}>
+          <View style={style.header.offset}></View>
+          <View style={style.header.inner}>
+            <TouchableHighlight
+              underlayColor='#f6f6f6'
+              style={style.header.timer}
+            >
+              <Text>SNEAKAL</Text>
+            </TouchableHighlight>
+          </View>
+        </View>
+
         <View style={style.list.container}>
           <SwipeListView
             dataSource={ds.cloneWithRows(this.state.listItem)}
@@ -40,7 +52,7 @@ class List extends Component {
               <TouchableHighlight
                 onPress={Actions.slide}
                 style={style.list.row}
-                underlayColor={'#efb7bc'}
+                underlayColor={'#f6f6f6'}
               >
                 <View style={style.list.item}>
                   <View style={style.list.posted}>
@@ -59,11 +71,11 @@ class List extends Component {
             )}
             renderHiddenRow={ (data, secId, rowId, rowMap) => (
               <View style={style.list.behindContainer}>
-                <View style={[style.list.backBehide, style.list.btnSetting]}>
-                  <Text style={style.text.white}>Right</Text>
+                <View style={[style.list.btnBehide, style.list.btnSetting]}>
+                  <Text style={[style.text.white, style.text.bold]}>SETTING</Text>
                 </View>
-                <TouchableOpacity style={[style.list.backBehide, style.list.btnDelete]} onPress={ _ => this.deleteRow(secId, rowId, rowMap) }>
-                  <Text style={style.text.white}>Delete</Text>
+                <TouchableOpacity style={[style.list.btnBehide, style.list.btnDelete]} onPress={ _ => this.deleteRow(secId, rowId, rowMap) }>
+                  <Text style={[style.text.white, style.text.bold]}>DELETE</Text>
                 </TouchableOpacity>
               </View>
             )}
