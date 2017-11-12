@@ -7,6 +7,7 @@ import {
   TouchableHighlight,
   TouchableOpacity
 } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { Actions } from 'react-native-router-flux';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import style from '../styles';
@@ -41,6 +42,13 @@ class List extends Component {
               style={style.header.timer}
             >
               <Text>SNEAKAL</Text>
+            </TouchableHighlight>
+            <TouchableHighlight
+              underlayColor='#efb7bc'
+              style={style.header.player}
+              onPress={Actions.editor}
+            >
+              <Icon name={'pencil'} size={20} color="#f12f40" />
             </TouchableHighlight>
           </View>
         </View>

@@ -14,6 +14,7 @@ import {
 } from 'react-native-router-flux';
 import Slide from './js/components/Slide';
 import List from './js/components/List';
+import Editor from './js/components/Editor';
 
 export default class App extends Component {
   render() {
@@ -22,6 +23,7 @@ export default class App extends Component {
         <Scene key='root'>
           <Scene hideNavBar={true} key='list' component={List} initial/>
           <Scene hideNavBar={true} key='slide' component={Slide} />
+          <Scene hideNavBar={true} key='editor' component={Editor} />
         </Scene>
       </Router>
     );

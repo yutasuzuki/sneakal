@@ -4,6 +4,7 @@ import slide from './slide.style';
 import list from './list.style';
 import text from './text.style';
 import markdown from './markdown.style';
+import editor from './editor.style';
 
 const style = {
   base,
@@ -11,7 +12,8 @@ const style = {
   slide,
   list,
   text,
-  markdown
+  markdown,
+  editor
 };
 
 export default style;
