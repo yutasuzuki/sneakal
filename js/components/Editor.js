@@ -14,6 +14,10 @@ class Editor extends Component {
     super(props);
   }
 
+  onSaveHandler() {
+
+  }
+
   render() {
     return (
       <View style={style.base.container}>
@@ -32,6 +36,13 @@ class Editor extends Component {
               style={style.header.timer}
             >
               <Text>Edit</Text>
+            </TouchableHighlight>
+            <TouchableHighlight
+              underlayColor='#efb7bc'
+              style={style.header.player}
+              onPress={this.onSaveHandler.bind(this)}
+            >
+              <Text>Save</Text>
             </TouchableHighlight>
           </View>
         </View>
