@@ -16,7 +16,7 @@ import Slide from './js/components/Slide';
 import List from './js/components/List';
 import Editor from './js/components/Editor';
 
-export default class App extends Component {
+class Route extends Component {
   render() {
     return (
       <Router>
@@ -26,6 +26,14 @@ export default class App extends Component {
           <Scene hideNavBar={true} key='editor' component={Editor} />
         </Scene>
       </Router>
+    );
+  }
+}
+
+export default class App extends Component {
+  render() {
+    return (
+      <Route />
     );
   }
 }

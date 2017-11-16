@@ -23,6 +23,10 @@ class List extends Component {
     }
   }
 
+  componentWillMount() {
+    console.log('componentWillMount!!');
+  }
+
   componentDidMount() {
     console.log('list2');
     db.transaction(tx => {

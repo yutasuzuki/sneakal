@@ -22,11 +22,14 @@ class Editor extends Component {
         tx.executeSql('select * from items', [], (_, { rows }) => {
           console.log(JSON.stringify(rows));
           console.log('onSaveHandler');
-          Actions.list();
         });
       },
       null
     );
+  }
+
+  pop() {
+    Actions.pop({ refresh: { title: 'new title' } });
   }
 
   render() {
@@ -38,7 +41,7 @@ class Editor extends Component {
             <TouchableHighlight
               underlayColor='#efb7bc'
               style={style.header.prev}
-              onPress={Actions.pop}
+              onPress={this.pop.bind(this)}
             >
               <Icon name={'chevron-left'} size={20} color="#f12f40" />
             </TouchableHighlight>
