@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Actions } from 'react-native-router-flux';
+import { db } from '../config';
 import style from '../styles';
 
 class Editor extends Component {
@@ -15,7 +16,17 @@ class Editor extends Component {
   }
 
   onSaveHandler() {
-
+    db.transaction(
+      tx => {
+        tx.executeSql('insert into items (done, value) values (0, ?)', ['hgoe']);
+        tx.executeSql('select * from items', [], (_, { rows }) => {
+          console.log(JSON.stringify(rows));
+          console.log('onSaveHandler');
+          Actions.list();
+        });
+      },
+      null
+    );
   }
 
   render() {
