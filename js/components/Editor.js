@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { 
   Text, 
   View,
+  ScrollView,
   TextInput,
   TouchableHighlight
 } from 'react-native';
@@ -16,32 +17,50 @@ export function random(min = 0, max = 100) {
 
 class Editor extends Component {
   constructor (props) {
-    console.log('Editor');
     super(props);
+    console.log('Editor');
+    const id = props.navigation.state.params.id;
+
     this.state = {
+      id: null,
       title: '',
       text: '',
-      created: null,
-      updated: null,
-      deleted: null
+    }
+
+    if (id) {
+      SpeechModel.getItem(id).then((response) => {
+        console.log('response', response);
+        const res = response[0];
+        this.setState({
+          id: res.id,
+          title: res.title,
+          text: res.text,
+        });
+      });
     }
   }
 
   onSaveHandler() {
     if (!this.state.title) return;
-    SpeechModel.createItem(this.state).then(() => {
-      console.log('onSaveHandler');
-      Actions.pop();
-      const id = random();
-      Actions.refresh({name: id});
-    });
+    if (this.state.id) {
+      console.log('update: onSaveHandler');
+      SpeechModel.updateItem(this.state).then(() => {
+        Actions.pop();
+        const id = random();
+        Actions.refresh({id});
+      });
+    } else {
+      console.log('create: onSaveHandler');
+      SpeechModel.createItem(this.state).then(() => {
+        Actions.pop();
+        const id = random();
+        Actions.refresh({id});
+      });
+    }
   }
 
   pop() {
-    SpeechModel.getItem(1).then((res) => {
-      console.log('res', res);
-      Actions.pop();
-    });
+    Actions.pop();
   }
 
   render() {
@@ -72,7 +91,7 @@ class Editor extends Component {
             </TouchableHighlight>
           </View>
         </View>
-        <View style={style.editor.container}>
+        <ScrollView style={style.editor.container}>
           <View style={style.editor.titleContainer}>
             <TextInput
               style={style.editor.title}
@@ -80,6 +99,7 @@ class Editor extends Component {
               multiline={true}
               onChangeText={(title) => this.setState({title})}
               editable={true}
+              value={this.state.title}
             />
           </View>
           <View style={style.editor.textContainer}>
@@ -89,9 +109,10 @@ class Editor extends Component {
               multiline={true}
               onChangeText={(text) => this.setState({text})}
               editable={true}
+              value={this.state.text}
             />
           </View>
-        </View>
+        </ScrollView>
       </View>
     )
   }

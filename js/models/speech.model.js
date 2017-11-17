@@ -11,8 +11,8 @@ class SpeechModel {
             id integer primary key not null, 
             title text,
             text text,
-            created text,
-            updated text,
+            created TIMESTAMP DEFAULT (DATETIME('now','localtime')),
+            updated TIMESTAMP DEFAULT (DATETIME('now','localtime')),
             deleted text
           );`
         );
@@ -55,6 +55,21 @@ class SpeechModel {
       db.transaction(
         tx => {
           tx.executeSql('insert into items (title, text) values (?, ?)', [state.title, state.text], (_, val) => {});
+          tx.executeSql('select * from items', [], (_, { rows }) => {
+            resolve(rows);
+          });
+        },
+        null
+      );
+    })
+  }
+
+  updateItem(state) {
+    console.log(state);
+    return new Promise((resolve, reject) => {
+      db.transaction(
+        tx => { //UPDATE table SET datecol=date('now')
+          tx.executeSql(`update items set updated = DATETIME('now','localtime'), title = ?, text = ? where id = ?;`, [state.title, state.text, state.id]);
           tx.executeSql('select * from items', [], (_, { rows }) => {
             resolve(rows);
           });

@@ -4,6 +4,7 @@ import {
   Text, 
   View, 
   ListView,
+  ScrollView,
   TouchableHighlight,
   TouchableOpacity
 } from 'react-native';
@@ -26,6 +27,7 @@ class List extends Component {
   componentWillReceiveProps() {
     console.log('componentWillReceiveProps!!');
     SpeechModel.getItemList().then((_array) => {
+      console.log(_array);
       this.setState({
         listItem: _array,
       })
@@ -60,8 +62,9 @@ class List extends Component {
       });
   }
 
-  settingItem(id) {
-    console.log('setting id', id);
+  editItem(id) {
+    console.log('edit id', id);
+    Actions.editor({id});
   }
 
   render() {
@@ -88,7 +91,7 @@ class List extends Component {
           </View>
         </View>
 
-        <View style={style.list.container}>
+        <ScrollView style={style.list.container}>
           {(() => {
             if(!this.state.listItem.length) {
               return <Text>Loading</Text>
@@ -119,8 +122,8 @@ class List extends Component {
                   )}
                   renderHiddenRow={(data, secId, rowId, rowMap) => (
                     <View style={style.list.behindContainer}>
-                      <TouchableOpacity onPress={this.settingItem.bind(this, data.id)} style={[style.list.btnBehide, style.list.btnSetting]}>
-                        <Text style={[style.text.white, style.text.bold]}>SETTING</Text>
+                      <TouchableOpacity onPress={this.editItem.bind(this, data.id)} style={[style.list.btnBehide, style.list.btnSetting]}>
+                        <Text style={[style.text.white, style.text.bold]}>EDIT</Text>
                       </TouchableOpacity>
                       <TouchableOpacity onPress={this.deleteItem.bind(this, data.id)} style={[style.list.btnBehide, style.list.btnDelete]}>
                         <Text style={[style.text.white, style.text.bold]}>DELETE</Text>
@@ -133,7 +136,7 @@ class List extends Component {
               )
             }
           })()}
-        </View>
+        </ScrollView>
       </View>
     )
   }
