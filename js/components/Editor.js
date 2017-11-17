@@ -7,29 +7,41 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Actions } from 'react-native-router-flux';
-import { db } from '../config';
+import SpeechModel from '../models/speech.model';
 import style from '../styles';
+
+export function random(min = 0, max = 100) {
+  return Math.floor(Math.random() * (max + 1 - min)) + min;
+}
 
 class Editor extends Component {
   constructor (props) {
+    console.log('Editor');
     super(props);
+    this.state = {
+      title: '',
+      text: '',
+      created: null,
+      updated: null,
+      deleted: null
+    }
   }
 
   onSaveHandler() {
-    db.transaction(
-      tx => {
-        tx.executeSql('insert into items (done, value) values (0, ?)', ['hgoe']);
-        tx.executeSql('select * from items', [], (_, { rows }) => {
-          console.log(JSON.stringify(rows));
-          console.log('onSaveHandler');
-        });
-      },
-      null
-    );
+    if (!this.state.title) return;
+    SpeechModel.createItem(this.state).then(() => {
+      console.log('onSaveHandler');
+      Actions.pop();
+      const id = random();
+      Actions.refresh({name: id});
+    });
   }
 
   pop() {
-    Actions.pop({ refresh: { title: 'new title' } });
+    SpeechModel.getItem(1).then((res) => {
+      console.log('res', res);
+      Actions.pop();
+    });
   }
 
   render() {
@@ -66,6 +78,7 @@ class Editor extends Component {
               style={style.editor.title}
               placeholder='TITLE'
               multiline={true}
+              onChangeText={(title) => this.setState({title})}
               editable={true}
             />
           </View>
@@ -74,6 +87,7 @@ class Editor extends Component {
               style={style.editor.text}
               placeholder='Awesome Speech...'
               multiline={true}
+              onChangeText={(text) => this.setState({text})}
               editable={true}
             />
           </View>

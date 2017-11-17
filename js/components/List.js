@@ -10,7 +10,7 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Actions } from 'react-native-router-flux';
 import { SwipeListView } from 'react-native-swipe-list-view';
-import { db } from '../config';
+import SpeechModel from '../models/speech.model';
 import style from '../styles';
 
 
@@ -23,44 +23,41 @@ class List extends Component {
     }
   }
 
+  componentWillReceiveProps() {
+    console.log('componentWillReceiveProps!!');
+    SpeechModel.getItemList().then((_array) => {
+      this.setState({
+        listItem: _array,
+      })
+      this.setState({ items: _array })
+    });
+  }
+
   componentWillMount() {
-    console.log('componentWillMount!!');
+    SpeechModel.createTable().then(() => {
+      console.log('componentWillMount!! createTable!!');
+    });
   }
 
   componentDidMount() {
-    console.log('list2');
-    db.transaction(tx => {
-      console.log(tx);
-      tx.executeSql(
-        `create table if not exists items (
-          id integer primary key not null, 
-          done int, 
-          value text
-        );`
-      );
-    });
-    db.transaction(tx => {
-      tx.executeSql(`select * from items where done = ?;`, [this.props.done ? 1 : 0], (_, { rows: { _array } }) =>  {
-        console.log(_array);
-        this.setState({
-          listItem: _array,
-        })
-        this.setState({ items: _array })
-      });
+    SpeechModel.getItemList().then((_array) => {
+      this.setState({
+        listItem: _array,
+      })
+      this.setState({ items: _array })
     });
   }
 
   deleteItem(id) {
     console.log('delete id', id);
-    db.transaction(tx => {
-      console.log(tx);
-      tx.executeSql(
-        'drop table items;'
-      );
-    });
-    this.setState({
-      listItem: [],
-    })
+    SpeechModel.dropTable()
+      .then(() => {
+        return SpeechModel.createTable();
+      }).then(() => {
+        this.setState({
+          listItem: [],
+        });
+      });
   }
 
   settingItem(id) {
@@ -111,10 +108,10 @@ class List extends Component {
                         </View>
                         <View style={style.list.context}>
                           <View style={style.list.header}>
-                            <Text style={style.list.textTitle}>I am {data.id} in a SwipeListView</Text>
+                            <Text style={style.list.textTitle}>{data.title}</Text>
                           </View>
                           <View style={style.list.body}>
-                            <Text style={style.list.textParagrph}>I am {data.id} in a SwipeListView</Text>
+                            <Text style={style.list.textParagrph}>{data.text}</Text>
                           </View>
                         </View>
                       </View>
