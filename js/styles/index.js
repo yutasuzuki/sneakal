@@ -5,6 +5,7 @@ import list from './list.style';
 import text from './text.style';
 import markdown from './markdown.style';
 import editor from './editor.style';
+import { color } from './setting.style';
 
 const style = {
   base,
@@ -13,7 +14,8 @@ const style = {
   list,
   text,
   markdown,
-  editor
+  editor,
+  color
 };
 
 export default style;

@@ -1,5 +1,8 @@
 import { StyleSheet } from 'react-native';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
+import { color } from './setting.style';
+
+console.log(color);
 
 const list = StyleSheet.create({
 	container: {
@@ -34,9 +37,15 @@ const list = StyleSheet.create({
 		backgroundColor: '#636363',
 		right: 75
 	},
-	btnDelete: {
-		backgroundColor: '#f12f40',
+	btnEdit: {
+		backgroundColor: '#636363',
+		borderLeftColor: '#737373',
+		borderLeftWidth: 1,
 		right: 0
+	},
+	btnDelete: {
+		backgroundColor: color.primary,
+		left: 0
 	},
 	item: {
 		flex: 1,

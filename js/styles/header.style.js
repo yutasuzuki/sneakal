@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
+import { color } from './setting.style';
 
 const header = StyleSheet.create({
   container: {
@@ -37,7 +38,7 @@ const header = StyleSheet.create({
   },
   timerText: {
     fontFamily: "FiraCode-Retina",
-    color: '#f12f40',
+    color: color.primary,
     fontSize: 24
   },
   timeLimits: {

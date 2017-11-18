@@ -74,7 +74,7 @@ class Editor extends Component {
               style={style.header.prev}
               onPress={this.pop.bind(this)}
             >
-              <Icon name={'chevron-left'} size={20} color="#f12f40" />
+              <Icon name={'chevron-left'} size={20} color={style.color.primary} />
             </TouchableHighlight>
             <TouchableHighlight
               underlayColor='#f6f6f6'

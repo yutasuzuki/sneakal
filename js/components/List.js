@@ -30,8 +30,7 @@ class List extends Component {
       console.log(_array);
       this.setState({
         listItem: _array,
-      })
-      this.setState({ items: _array })
+      });
     });
   }
 
@@ -45,24 +44,37 @@ class List extends Component {
     SpeechModel.getItemList().then((_array) => {
       this.setState({
         listItem: _array,
-      })
-      this.setState({ items: _array })
+      });
     });
   }
 
-  deleteItem(id) {
+  deleteItem(id, rowMap, secId, rowId) {
+    rowMap[`${secId}${rowId}`].closeRow();
     console.log('delete id', id);
-    SpeechModel.dropTable()
-      .then(() => {
-        return SpeechModel.createTable();
-      }).then(() => {
-        this.setState({
-          listItem: [],
+
+    if (id === 1) {
+      SpeechModel.dropTable()
+        .then(() => {
+          return SpeechModel.createTable();
+        }).then(() => {
+          this.setState({
+            listItem: [],
+          });
         });
-      });
+    } else {
+      SpeechModel.deleteItem(id)
+        .then(() => {
+          return SpeechModel.getItemList();
+        }).then((_array) => {
+          this.setState({
+            listItem: _array,
+          });
+        })
+    }
   }
 
-  editItem(id) {
+  editItem(id, rowMap, secId, rowId) {
+    rowMap[`${secId}${rowId}`].closeRow();
     console.log('edit id', id);
     Actions.editor({id});
   }
@@ -79,19 +91,19 @@ class List extends Component {
               underlayColor='#f6f6f6'
               style={style.header.timer}
             >
-              <Text>SNEAKALs</Text>
+              <Text>Parrot</Text>
             </TouchableHighlight>
             <TouchableHighlight
               underlayColor='#efb7bc'
               style={style.header.player}
               onPress={Actions.editor}
             >
-              <Icon name={'pencil'} size={20} color="#f12f40" />
+              <Icon name={'pencil'} size={20} color={style.color.primary} />
             </TouchableHighlight>
           </View>
         </View>
 
-        <ScrollView style={style.list.container}>
+        <View style={style.list.container}>
           {(() => {
             if(!this.state.listItem.length) {
               return <Text>Loading</Text>
@@ -122,21 +134,22 @@ class List extends Component {
                   )}
                   renderHiddenRow={(data, secId, rowId, rowMap) => (
                     <View style={style.list.behindContainer}>
-                      <TouchableOpacity onPress={this.editItem.bind(this, data.id)} style={[style.list.btnBehide, style.list.btnSetting]}>
+                      <TouchableOpacity onPress={this.editItem.bind(this, data.id, rowMap, secId, rowId)} style={[style.list.btnBehide, style.list.btnEdit]}>
                         <Text style={[style.text.white, style.text.bold]}>EDIT</Text>
                       </TouchableOpacity>
-                      <TouchableOpacity onPress={this.deleteItem.bind(this, data.id)} style={[style.list.btnBehide, style.list.btnDelete]}>
+                      <TouchableOpacity onPress={this.deleteItem.bind(this, data.id, rowMap, secId, rowId)} style={[style.list.btnBehide, style.list.btnDelete]}>
                         <Text style={[style.text.white, style.text.bold]}>DELETE</Text>
                       </TouchableOpacity>
                     </View>
                   )}
-                  disableRightSwipe={true}
-                  rightOpenValue={-150}
+                  // disableRightSwipe={true}
+                  rightOpenValue={-75}
+                  leftOpenValue={75}
                 />
               )
             }
           })()}
-        </ScrollView>
+        </View>
       </View>
     )
   }
