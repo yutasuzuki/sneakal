@@ -142,7 +142,6 @@ class List extends Component {
                       </TouchableOpacity>
                     </View>
                   )}
-                  // disableRightSwipe={true}
                   rightOpenValue={-75}
                   leftOpenValue={75}
                 />

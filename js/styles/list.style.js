@@ -33,14 +33,8 @@ const list = StyleSheet.create({
 		alignItems: 'center',
 		width: 75,
 	},
-	btnSetting: {
-		backgroundColor: '#636363',
-		right: 75
-	},
 	btnEdit: {
 		backgroundColor: '#636363',
-		borderLeftColor: '#737373',
-		borderLeftWidth: 1,
 		right: 0
 	},
 	btnDelete: {
