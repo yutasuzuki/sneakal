@@ -12,6 +12,7 @@ import Swiper from 'react-native-swiper';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 import { Actions } from 'react-native-router-flux';
+import SpeechModel from '../models/speech.model';
 import Markdown from './Markdown';
 import style from '../styles';
 
@@ -128,17 +129,33 @@ class Slide extends Component {
       total: 0,
       player: false,
       showTimeLimit: false,
-      notificationTimes: [60, 120, 180]
+      notificationTimes: [60, 120, 180],
+      texts: []
     };
     this.state = Object.assign({}, this.defaultState);
     this.queue = null;
+
+    const id = props.navigation.state.params.id;
+    console.log(id)
+    if (id) {
+      SpeechModel.getItem(id).then((response) => {
+        console.log('response', response);
+        const res = response[0];
+
+        this.setState({
+          id: res.id,
+          title: res.title,
+          texts: res.text.split('---\n'),
+        });
+      });
+    }
   }
 
   componentWillMount() {
     this.preload();
-    this.setState({
-      texts: text.split('---\n')
-    });
+    // this.setState({
+    //   texts: text.split('---\n')
+    // });
   }
 
   componentWillUnmount() {

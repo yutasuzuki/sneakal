@@ -6,6 +6,9 @@
     },
     "android": {
       "package": "hoge"
+    },
+    "splash": {
+      "backgroundColor": "#f12f40"
     }
   }
 }

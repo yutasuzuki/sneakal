@@ -79,6 +79,10 @@ class List extends Component {
     Actions.editor({id});
   }
 
+  onSlideHandler(id) {
+    Actions.slide({id});
+  }
+
   render() {
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     return (
@@ -113,7 +117,7 @@ class List extends Component {
                   dataSource={ds.cloneWithRows(this.state.listItem)}
                   renderRow={ data => (
                     <TouchableHighlight
-                      onPress={Actions.slide}
+                      onPress={this.onSlideHandler.bind(this, data.id)}
                       style={style.list.row}
                       underlayColor={'#f6f6f6'}
                     >
