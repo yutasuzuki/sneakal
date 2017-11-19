@@ -79,7 +79,10 @@ class List extends Component {
     Actions.editor({id});
   }
 
-  onSlideHandler(id) {
+  onSlideHandler(data) {
+    console.log(data);
+    const id = data.id;
+    console.log(id);
     Actions.slide({id});
   }
 
@@ -117,7 +120,7 @@ class List extends Component {
                   dataSource={ds.cloneWithRows(this.state.listItem)}
                   renderRow={ data => (
                     <TouchableHighlight
-                      onPress={this.onSlideHandler.bind(this, data.id)}
+                      onPress={this.onSlideHandler.bind(this, data)}
                       style={style.list.row}
                       underlayColor={'#f6f6f6'}
                     >
@@ -130,7 +133,10 @@ class List extends Component {
                             <Text style={style.list.textTitle}>{data.title}</Text>
                           </View>
                           <View style={style.list.body}>
-                            <Text style={style.list.textParagrph}>{data.text}</Text>
+                            <Text style={style.list.textParagrph}>{(() => {
+                              const text = data.text.replace(/\r?\n/g, '');
+                              return text.length < 40 ? text: text.slice(0, 40) + '...';
+                            })()}</Text>
                           </View>
                         </View>
                       </View>

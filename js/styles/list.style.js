@@ -69,7 +69,7 @@ const list = StyleSheet.create({
 		fontSize: 18,
   },
   body: {
-
+		paddingRight: 16,
   },
   textParagrph: {
 		fontSize: 14,
