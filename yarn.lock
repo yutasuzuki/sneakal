@@ -1564,7 +1564,7 @@ crc@3.3.0:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/crc/-/crc-3.3.0.tgz#fa622e1bc388bf257309082d6b65200ce67090ba"
 
-create-react-class@^15.5.2:
+create-react-class@^15.5.2, create-react-class@^15.6.0:
   version "15.6.2"
   resolved "https://registry.yarnpkg.com/create-react-class/-/create-react-class-15.6.2.tgz#cf1ed15f12aad7f14ef5f2dfe05e6c42f91ef02a"
   dependencies:
@@ -4786,6 +4786,13 @@ react-native-markdown-syntax@^0.1.0:
   resolved "https://registry.yarnpkg.com/react-native-markdown-syntax/-/react-native-markdown-syntax-0.1.0.tgz#e6813da8ba3f0a2738bccc9ae92baf4d02bad5a3"
   dependencies:
     lodash "^4.16.4"
+
+react-native-modalbox@^1.4.2:
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/react-native-modalbox/-/react-native-modalbox-1.4.2.tgz#818c9354c9b13327ec807c6436e8516b3b419478"
+  dependencies:
+    create-react-class "^15.6.0"
+    prop-types "^15.5.10"
 
 react-native-router-flux@^4.0.0-beta.23:
   version "4.0.0-beta.23"

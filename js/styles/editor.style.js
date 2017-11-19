@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
+import { color } from './setting.style';
 
 const base = StyleSheet.create({
 	container: {
@@ -24,6 +25,34 @@ const base = StyleSheet.create({
   },
   text: {
     fontSize: 16,
+  },
+  btnSettingContainer: {
+    position: 'absolute',
+    bottom: 20,
+    right: 20,
+    zIndex: 1,
+    width: 66,
+    height: 66,
+    borderRadius: 33,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  btnSetting: {
+    width: 56,
+    height: 56,
+    borderRadius: 28,
+    backgroundColor: color.primary,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  pickerContainer: {
+    flex: 1,
+    flexDirection: 'row',
+  },
+  pickerColumn: {
+    flex: 1,
   }
 });
 

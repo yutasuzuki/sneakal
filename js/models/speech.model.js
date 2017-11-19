@@ -11,6 +11,9 @@ class SpeechModel {
             id integer primary key not null, 
             title text,
             text text,
+            timer1 integer,
+            timer2 integer,
+            timer3 integer,
             created TIMESTAMP DEFAULT (DATETIME('now','localtime')),
             updated TIMESTAMP DEFAULT (DATETIME('now','localtime')),
             deleted text
@@ -34,6 +37,7 @@ class SpeechModel {
     return new Promise((resolve, reject) => {
       db.transaction(tx => {
         tx.executeSql(`select * from items where deleted IS NULL;`, [null], (_, { rows: { _array } }) =>  {
+          console.log(_array);
           resolve(_array);
         });
       });

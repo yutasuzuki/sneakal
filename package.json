@@ -26,6 +26,7 @@
     "react": "16.0.0-beta.5",
     "react-native": "^0.49.5",
     "react-native-markdown-syntax": "^0.1.0",
+    "react-native-modalbox": "^1.4.2",
     "react-native-router-flux": "^4.0.0-beta.23",
     "react-native-status-bar-height": "^1.0.1",
     "react-native-swipe-list-view": "^0.4.6",
