@@ -115,9 +115,12 @@ class List extends Component {
             if(!this.state.listItem.length) {
               return <Text>Loading</Text>
             } else {
+              const items = this.state.listItem.sort((a,b) => {
+                return (a.updated < b.updated ? 1 : -1);
+              });
               return (
                 <SwipeListView
-                  dataSource={ds.cloneWithRows(this.state.listItem)}
+                  dataSource={ds.cloneWithRows(items)}
                   renderRow={ data => (
                     <TouchableHighlight
                       onPress={this.onSlideHandler.bind(this, data)}
@@ -126,7 +129,7 @@ class List extends Component {
                     >
                       <View style={style.list.item}>
                         <View style={style.list.posted}>
-                          <Text style={style.list.textPosted}>{data.id}h</Text>
+                          <Text style={style.list.textPosted}>{data.updated}</Text>
                         </View>
                         <View style={style.list.context}>
                           <View style={style.list.header}>
