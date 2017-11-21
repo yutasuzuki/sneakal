@@ -5,6 +5,7 @@ import list from './list.style';
 import text from './text.style';
 import markdown from './markdown.style';
 import editor from './editor.style';
+import drawer from './drawer.style';
 import { color } from './setting.style';
 
 const style = {
@@ -15,6 +16,7 @@ const style = {
   text,
   markdown,
   editor,
+  drawer,
   color
 };
 
