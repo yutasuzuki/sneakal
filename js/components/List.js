@@ -11,6 +11,7 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Actions } from 'react-native-router-flux';
 import { SwipeListView } from 'react-native-swipe-list-view';
+import Drawer from 'react-native-drawer';
 import SpeechModel from '../models/speech.model';
 import style from '../styles';
 
@@ -18,7 +19,6 @@ import style from '../styles';
 class List extends Component {
   constructor(props) {
     super(props);
-    console.log('list1');
     this.state = {
       listItem: []
     }
@@ -27,7 +27,6 @@ class List extends Component {
   componentWillReceiveProps() {
     console.log('componentWillReceiveProps!!');
     SpeechModel.getItemList().then((_array) => {
-      console.log(_array);
       this.setState({
         listItem: _array,
       });
@@ -56,7 +55,8 @@ class List extends Component {
       SpeechModel.dropTable()
         .then(() => {
           return SpeechModel.createTable();
-        }).then(() => {
+        })
+        .then(() => {
           this.setState({
             listItem: [],
           });
@@ -65,7 +65,8 @@ class List extends Component {
       SpeechModel.deleteItem(id)
         .then(() => {
           return SpeechModel.getItemList();
-        }).then((_array) => {
+        })
+        .then((_array) => {
           this.setState({
             listItem: _array,
           });
@@ -80,10 +81,13 @@ class List extends Component {
   }
 
   onSlideHandler(data) {
-    console.log(data);
     const id = data.id;
-    console.log(id);
     Actions.slide({id});
+  }
+
+  onShowDrawer() {
+    console.log(this.props);
+    this.props.showDrawer();
   }
 
   render() {
@@ -94,6 +98,13 @@ class List extends Component {
         <View style={style.header.container}>
           <View style={style.header.offset}></View>
           <View style={style.header.inner}>
+            <TouchableHighlight
+              underlayColor='#efb7bc'
+              style={style.header.prev}
+              onPress={this.onShowDrawer.bind(this)}
+            >
+              <Icon name={'sliders'} size={20} color={style.color.primary} />
+            </TouchableHighlight>
             <TouchableHighlight
               underlayColor='#f6f6f6'
               style={style.header.timer}

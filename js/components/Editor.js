@@ -43,23 +43,16 @@ class Editor extends Component {
     }
   }
 
-  onSaveHandler() {
+  async onSaveHandler() {
     if (!this.state.title) return;
     if (this.state.id) {
-      console.log('update: onSaveHandler');
-      SpeechModel.updateItem(this.state).then(() => {
-        Actions.pop();
-        const id = random();
-        Actions.refresh({id});
-      });
+      await SpeechModel.updateItem(this.state);
     } else {
-      console.log('create: onSaveHandler');
-      SpeechModel.createItem(this.state).then(() => {
-        Actions.pop();
-        const id = random();
-        Actions.refresh({id});
-      });
+      await SpeechModel.createItem(this.state);
     }
+    Actions.pop();
+    const id = random();
+    Actions.refresh({id});
   }
 
   pop() {

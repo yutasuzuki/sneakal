@@ -13,7 +13,7 @@ import {
   Lightbox,
 } from 'react-native-router-flux';
 import Slide from './js/components/Slide';
-import List from './js/components/List';
+import Main from './js/components/Main';
 import Editor from './js/components/Editor';
 
 class Route extends Component {
@@ -21,7 +21,7 @@ class Route extends Component {
     return (
       <Router>
         <Scene key='root'>
-          <Scene hideNavBar={true} key='list' component={List} initial/>
+          <Scene hideNavBar={true} key='main' component={Main} initial/>
           <Scene hideNavBar={true} key='slide' component={Slide} />
           <Scene hideNavBar={true} key='editor' component={Editor} />
         </Scene>
