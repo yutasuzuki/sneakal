@@ -62,7 +62,6 @@ class Editor extends Component {
     return (
       <View style={style.base.container}>
         <View style={style.header.container}>
-          <View style={style.header.offset}></View>
           <View style={style.header.inner}>
             <TouchableHighlight
               underlayColor='#efb7bc'
