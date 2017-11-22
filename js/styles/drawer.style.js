@@ -1,15 +1,25 @@
 import { StyleSheet } from 'react-native';
+import { Constants } from 'expo';
 
 const drawer = StyleSheet.create({
-  header: {
+  container: {
+    paddingTop: Constants.statusBarHeight,
     color: '#fff',
   },
-  list: {
-
+  header: {
+    color: '#fff',
+    height: 45,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  bold: {
-		fontWeight: 'bold',
-  }
+  headerLogo: {
+    color: '#353535',
+    fontSize: 16,
+  },
+  list: {
+    color: '#fff',
+  },
 });
 
 export default drawer;

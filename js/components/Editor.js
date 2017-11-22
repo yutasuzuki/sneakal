@@ -32,7 +32,6 @@ class Editor extends Component {
 
     if (id) {
       SpeechModel.getItem(id).then((response) => {
-        console.log('response', response);
         const res = response[0];
         this.setState({
           id: res.id,

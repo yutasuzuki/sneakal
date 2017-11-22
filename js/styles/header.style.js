@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 import { color } from './setting.style';
+import { Constants } from 'expo';
 
 const header = StyleSheet.create({
   container: {
@@ -10,9 +11,7 @@ const header = StyleSheet.create({
     right: 0,
     zIndex: 1,
     backgroundColor: 'rgba(255, 255, 255, .97)',
-  },
-  offset: {
-    height: getStatusBarHeight(),
+    paddingTop: Constants.statusBarHeight
   },
   inner: {
     height: 45,

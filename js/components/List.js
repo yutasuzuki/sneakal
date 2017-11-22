@@ -14,6 +14,7 @@ import { SwipeListView } from 'react-native-swipe-list-view';
 import Drawer from 'react-native-drawer';
 import SpeechModel from '../models/speech.model';
 import style from '../styles';
+import { diffDate } from '../util';
 
 
 class List extends Component {
@@ -34,9 +35,7 @@ class List extends Component {
   }
 
   componentWillMount() {
-    SpeechModel.createTable().then(() => {
-      console.log('componentWillMount!! createTable!!');
-    });
+    SpeechModel.createTable();
   }
 
   componentDidMount() {
@@ -49,7 +48,6 @@ class List extends Component {
 
   deleteItem(id, rowMap, secId, rowId) {
     rowMap[`${secId}${rowId}`].closeRow();
-    console.log('delete id', id);
 
     if (id === 1) {
       SpeechModel.dropTable()
@@ -76,7 +74,6 @@ class List extends Component {
 
   editItem(id, rowMap, secId, rowId) {
     rowMap[`${secId}${rowId}`].closeRow();
-    console.log('edit id', id);
     Actions.editor({id});
   }
 
@@ -86,7 +83,6 @@ class List extends Component {
   }
 
   onShowDrawer() {
-    console.log(this.props);
     this.props.showDrawer();
   }
 
@@ -96,7 +92,6 @@ class List extends Component {
       <View style={style.base.container}>
 
         <View style={style.header.container}>
-          <View style={style.header.offset}></View>
           <View style={style.header.inner}>
             <TouchableHighlight
               underlayColor='#efb7bc'
@@ -140,7 +135,7 @@ class List extends Component {
                     >
                       <View style={style.list.item}>
                         <View style={style.list.posted}>
-                          <Text style={style.list.textPosted}>{data.updated}</Text>
+                          <Text style={style.list.textPosted}>{diffDate(data.updated)}</Text>
                         </View>
                         <View style={style.list.context}>
                           <View style={style.list.header}>

@@ -37,7 +37,6 @@ class SpeechModel {
     return new Promise((resolve, reject) => {
       db.transaction(tx => {
         tx.executeSql(`select * from items where deleted IS NULL;`, [null], (_, { rows: { _array } }) =>  {
-          console.log(_array);
           resolve(_array);
         });
       });
@@ -73,7 +72,6 @@ class SpeechModel {
         tx => {
           tx.executeSql('insert into items (title, text) values (?, ?)', [state.title, state.text], (_, val) => {});
           tx.executeSql('select * from items', [], (_, { rows }) => {
-            console.log(rows);
             resolve(rows);
           });
         },
@@ -86,7 +84,7 @@ class SpeechModel {
     console.log(state);
     return new Promise((resolve, reject) => {
       db.transaction(
-        tx => { //UPDATE table SET datecol=date('now')
+        tx => {
           tx.executeSql(`update items set updated = DATETIME('now','localtime'), title = ?, text = ? where id = ?;`, [state.title, state.text, state.id]);
           tx.executeSql('select * from items', [], (_, { rows }) => {
             resolve(rows);

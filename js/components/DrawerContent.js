@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { 
-  StyleSheet, 
   Text, 
   View, 
   ListView,
@@ -30,13 +29,13 @@ class DrawerContent extends Component {
 
   }
 
-  onShowDrawer() {
-    this._drawer.open();
-  }
-
   render() {
     return (
-      <View><Text>drawer</Text></View>
+      <View style={style.drawer.container}>
+        <View style={style.drawer.header}>
+          <Text style={style.drawer.headerLogo}>Parrot</Text>
+        </View>
+      </View>
     )
   }
 }

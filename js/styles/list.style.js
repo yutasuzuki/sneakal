@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { getStatusBarHeight } from 'react-native-status-bar-height';
+import { Constants } from 'expo';
 import { color } from './setting.style';
 
 console.log(color);
@@ -8,7 +8,7 @@ const list = StyleSheet.create({
 	container: {
     flex: 1,
     backgroundColor: '#fff',
-    paddingTop: 45 + getStatusBarHeight(),
+    marginTop: 30 + Constants.statusBarHeight,
 	},
 	row: {
 		flex: 1,
@@ -66,6 +66,7 @@ const list = StyleSheet.create({
 		marginBottom: 12,
   },
   textTitle: {
+		color: '#353535',
 		fontSize: 18,
   },
   body: {
