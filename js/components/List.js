@@ -86,6 +86,10 @@ class List extends Component {
     this.props.showDrawer();
   }
 
+  onScrollHandler(obj) {
+    console.log(obj);
+  }
+
   render() {
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     return (
@@ -101,12 +105,6 @@ class List extends Component {
               <Icon name={'sliders'} size={20} color={style.color.primary} />
             </TouchableHighlight>
             <TouchableHighlight
-              underlayColor='#f6f6f6'
-              style={style.header.timer}
-            >
-              <Text>Parrot</Text>
-            </TouchableHighlight>
-            <TouchableHighlight
               underlayColor='#efb7bc'
               style={style.header.player}
               onPress={Actions.editor}
@@ -116,7 +114,7 @@ class List extends Component {
           </View>
         </View>
 
-        <View style={style.list.container}>
+        <ScrollView style={style.list.container}>
           {(() => {
             if(!this.state.listItem.length) {
               return <Text>Loading</Text>
@@ -167,7 +165,7 @@ class List extends Component {
               )
             }
           })()}
-        </View>
+        </ScrollView>
       </View>
     )
   }

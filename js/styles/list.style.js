@@ -2,13 +2,11 @@ import { StyleSheet } from 'react-native';
 import { Constants } from 'expo';
 import { color } from './setting.style';
 
-console.log(color);
-
 const list = StyleSheet.create({
 	container: {
     flex: 1,
     backgroundColor: '#fff',
-    marginTop: 30 + Constants.statusBarHeight,
+    paddingTop: 45 + Constants.statusBarHeight,
 	},
 	row: {
 		flex: 1,

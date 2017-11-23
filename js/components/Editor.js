@@ -5,7 +5,8 @@ import {
   ScrollView,
   TextInput,
   Picker,
-  TouchableHighlight
+  TouchableHighlight,
+  KeyboardAvoidingView
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Actions } from 'react-native-router-flux';
@@ -85,28 +86,30 @@ class Editor extends Component {
             </TouchableHighlight>
           </View>
         </View>
-        <ScrollView style={style.editor.container}>
-          <View style={style.editor.titleContainer}>
-            <TextInput
-              style={style.editor.title}
-              placeholder='TITLE'
-              multiline={true}
-              onChangeText={(title) => this.setState({title})}
-              editable={true}
-              value={this.state.title}
-            />
-          </View>
-          <View style={style.editor.textContainer}>
-            <TextInput
-              style={style.editor.text}
-              placeholder='Awesome Speech...'
-              multiline={true}
-              onChangeText={(text) => this.setState({text})}
-              editable={true}
-              value={this.state.text}
-            />
-          </View>
-        </ScrollView>
+        <KeyboardAvoidingView behavior="padding" style={style.editor.form}>
+          <ScrollView style={style.editor.container}>
+            <View style={style.editor.titleContainer}>
+              <TextInput
+                style={style.editor.title}
+                placeholder='TITLE'
+                multiline={true}
+                onChangeText={(title) => this.setState({title})}
+                editable={true}
+                value={this.state.title}
+              />
+            </View>
+            <View style={style.editor.textContainer}>
+              <TextInput
+                style={style.editor.text}
+                placeholder='Awesome Speech...'
+                multiline={true}
+                onChangeText={(text) => this.setState({text})}
+                editable={true}
+                value={this.state.text}
+              />
+            </View>
+          </ScrollView>
+        </KeyboardAvoidingView>
         <TouchableHighlight 
           underlayColor='#efb7bc'
           onPress={() => this.refs.settingModal.open()}

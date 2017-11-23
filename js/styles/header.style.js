@@ -10,7 +10,7 @@ const header = StyleSheet.create({
     left: 0,
     right: 0,
     zIndex: 1,
-    backgroundColor: 'rgba(255, 255, 255, .97)',
+    backgroundColor: 'rgba(255, 255, 255, .87)',
     paddingTop: Constants.statusBarHeight
   },
   inner: {
